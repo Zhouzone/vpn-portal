@@ -1,41 +1,64 @@
 export const portalSummary = {
-  brand: "NaikoCloud JP",
-  location: "Tokyo Edge",
-  nodeIp: "103.25.100.166",
-  activeUsers: 5,
-  monthlyTraffic: "186.4 GB",
-  avgLatency: "71 ms",
-  cleanlinessScore: 92,
+  brand: "JP Shared Node",
+  location: "Japan VPS",
+  entry: "103.25.100.166:443",
+  stack: "Xray · VLESS + REALITY · TCP",
+  os: "Debian 12 (bookworm)",
+  cpu: "2 vCPU",
+  memory: "1967 MB RAM",
+  disk: "20 GB disk · 16 GB free",
+  activeSlots: 5,
+  observedToday: "9,146 accepted requests",
+  xrayStatus: "active since 2026-04-03 21:04 CST",
+  xrayMemory: "26.4 MB RSS",
+  snapshotAt: "2026-04-06 21:45 CST",
 };
 
-export const sampleAccounts = [
+export const memberSlots = [
   {
-    username: "akira",
-    plan: "Shared JP Mono",
-    status: "Healthy",
-    lastSeen: "5 min ago",
-    delivery: "Delivered privately",
-    cleanliness: {
-      score: 95,
-      dns: "Clean",
-      stream: "Available",
-      payment: "Mostly clean",
-      source: "ping0.cc",
-    },
+    code: "ULNCLH",
+    slot: "Slot 01",
+    status: "Active today",
+    activity: "Heavy",
+    todayObserved: 9146,
+    totalObserved: 10502,
+    lastSeen: "2026-04-06 21:45 CST",
   },
   {
-    username: "mori",
-    plan: "Shared JP Mono",
-    status: "Stable",
-    lastSeen: "18 min ago",
-    delivery: "Delivered privately",
-    cleanliness: {
-      score: 89,
-      dns: "Clean",
-      stream: "Available",
-      payment: "Needs recheck",
-      source: "ping0.cc",
-    },
+    code: "FZD04U",
+    slot: "Slot 02",
+    status: "No traffic observed",
+    activity: "Idle",
+    todayObserved: 0,
+    totalObserved: 0,
+    lastSeen: "No activity observed as of 2026-04-06",
+  },
+  {
+    code: "Z7CGBX",
+    slot: "Slot 03",
+    status: "No traffic observed",
+    activity: "Idle",
+    todayObserved: 0,
+    totalObserved: 0,
+    lastSeen: "No activity observed as of 2026-04-06",
+  },
+  {
+    code: "CIKTPH",
+    slot: "Slot 04",
+    status: "No traffic observed",
+    activity: "Idle",
+    todayObserved: 0,
+    totalObserved: 0,
+    lastSeen: "No activity observed as of 2026-04-06",
+  },
+  {
+    code: "9JDTQB",
+    slot: "Slot 05",
+    status: "No traffic observed",
+    activity: "Idle",
+    todayObserved: 0,
+    totalObserved: 0,
+    lastSeen: "No activity observed as of 2026-04-06",
   },
 ];
 
@@ -95,6 +118,7 @@ export const quickNotes = [
   "Windows 和 macOS 首先检查系统代理是否开启，很多“不能用”其实是没接管系统流量。",
   "Linux 图形环境优先用 Clash Verge Rev，纯命令行环境再考虑直接跑 Mihomo。",
   "iPhone 上的小火箭第一次启用会弹系统 VPN 权限，这是正常行为。",
+  "页面里的活跃度统计来自 Xray access.log 的连接接入次数，不等于精确流量 GB。",
 ];
 
 export const faqItems = [
@@ -117,41 +141,18 @@ export const faqItems = [
 ];
 
 export const usageTimeline = [
-  { day: "Mon", value: 22 },
-  { day: "Tue", value: 34 },
-  { day: "Wed", value: 28 },
-  { day: "Thu", value: 46 },
-  { day: "Fri", value: 52 },
-  { day: "Sat", value: 39 },
-  { day: "Sun", value: 30 },
-];
-
-export const dashboardCards = [
-  {
-    label: "Active Sessions",
-    value: "4",
-    detail: "2 desktop · 2 mobile",
-  },
-  {
-    label: "Traffic This Month",
-    value: "38.2 GB",
-    detail: "62 GB remaining",
-  },
-  {
-    label: "Node Health",
-    value: "99.98%",
-    detail: "Last reboot 1 day ago",
-  },
-  {
-    label: "Purity Score",
-    value: "95",
-    detail: "Checked with ping0.cc",
-  },
+  { day: "03/31", value: 0 },
+  { day: "04/01", value: 0 },
+  { day: "04/02", value: 0 },
+  { day: "04/03", value: 340 },
+  { day: "04/04", value: 1016 },
+  { day: "04/05", value: 0 },
+  { day: "04/06", value: 9168 },
 ];
 
 export const featureList = [
-  "公开页面只保留节点概况、客户端下载指引和导入教程",
-  "Windows、macOS、Linux 统一以 Clash Verge Rev 为主",
-  "iPhone 和 iPad 以 Shadowrocket 小火箭为主",
-  "真实订阅链接仍然由管理员私下分发，不在 GitHub Pages 公网展示",
+  "服务器真实配置：Debian 12，2 vCPU，1967 MB 内存，20 GB 磁盘",
+  "代理入口真实配置：103.25.100.166:443，Xray + VLESS + REALITY，无自有域名",
+  "Windows、macOS、Linux 统一以 Clash Verge Rev 为主，iPhone / iPad 用 Shadowrocket",
+  "公开页只展示真实快照和教程，真实订阅链接仍然由管理员私下分发",
 ];

@@ -11,11 +11,10 @@ import {
   faqItems,
   featureList,
   installGuides,
+  memberSlots,
   portalSummary,
   quickNotes,
-  sampleAccounts,
 } from "@/lib/mock-data";
-import { siteConfig } from "@/lib/site-config";
 
 export function PortalShell() {
   return (
@@ -30,31 +29,31 @@ export function PortalShell() {
                 Shared JP Node Guide
               </h1>
               <p className="max-w-2xl text-base text-[var(--muted-foreground)] sm:text-lg">
-                一个给小规模用户查看节点概况、导入说明和状态快照的公开说明页。
-                私有订阅和成员分发仍然由管理员线下处理。
+                一个用真实快照写成的公开说明页，展示这台日本 VPS 的实际配置、客户端导入方法，
+                以及 5 个匿名槽位的最近活跃情况。
               </p>
             </div>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
             <Card className="min-w-44">
               <CardHeader className="pb-3">
-                <CardDescription>Node</CardDescription>
+                <CardDescription>Entry</CardDescription>
                 <CardTitle>{portalSummary.location}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="font-mono text-xs text-[var(--muted-foreground)]">
-                  {portalSummary.nodeIp}
+                  {portalSummary.entry}
                 </div>
               </CardContent>
             </Card>
             <Card className="min-w-44">
               <CardHeader className="pb-3">
-                <CardDescription>Purity</CardDescription>
-                <CardTitle>{portalSummary.cleanlinessScore}/100</CardTitle>
+                <CardDescription>Stack</CardDescription>
+                <CardTitle>{portalSummary.stack}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="font-mono text-xs text-[var(--muted-foreground)]">
-                  ping0.cc snapshot
+                  Snapshot {portalSummary.snapshotAt}
                 </div>
               </CardContent>
             </Card>
@@ -85,29 +84,29 @@ export function PortalShell() {
             <div className="grid gap-6 md:grid-cols-3">
               <Card>
                 <CardHeader>
-                  <CardDescription>Traffic</CardDescription>
-                  <CardTitle>{portalSummary.monthlyTraffic}</CardTitle>
+                  <CardDescription>System</CardDescription>
+                  <CardTitle>{portalSummary.cpu}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-[var(--muted-foreground)]">
-                  本月总流量消耗
+                  {portalSummary.memory}
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
-                  <CardDescription>Latency</CardDescription>
-                  <CardTitle>{portalSummary.avgLatency}</CardTitle>
+                  <CardDescription>Disk</CardDescription>
+                  <CardTitle>{portalSummary.disk}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-[var(--muted-foreground)]">
-                  对常用出口的平均延迟
+                  {portalSummary.os}
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
-                  <CardDescription>Users</CardDescription>
-                  <CardTitle>{portalSummary.activeUsers}</CardTitle>
+                  <CardDescription>Observed Today</CardDescription>
+                  <CardTitle>{portalSummary.observedToday}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-[var(--muted-foreground)]">
-                  当前分发账号数量
+                  {portalSummary.activeSlots} issued slots · {portalSummary.xrayStatus}
                 </CardContent>
               </Card>
             </div>
@@ -151,32 +150,39 @@ export function PortalShell() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Member Snapshot</CardTitle>
-                <CardDescription>这里只展示共享池的成员快照样式，不展示真实密码或私有链接。</CardDescription>
+                <CardTitle>Anonymous Slot Snapshot</CardTitle>
+                <CardDescription>
+                  5 个已发放槽位全部匿名化处理。公开页只展示观察到的连接活跃度，不展示真实用户名或订阅。
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                {sampleAccounts.map((account) => (
+                {memberSlots.map((slot) => (
                   <div
-                    key={account.username}
+                    key={slot.code}
                     className="rounded-2xl border border-[var(--border)] bg-[var(--panel-2)] p-4"
                   >
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                       <div className="flex items-center gap-3">
                         <Avatar>
-                          <AvatarFallback>{account.username.slice(0, 2).toUpperCase()}</AvatarFallback>
+                          <AvatarFallback>{slot.code.slice(0, 2)}</AvatarFallback>
                         </Avatar>
                         <div>
                           <div className="font-mono text-sm uppercase tracking-[0.14em]">
-                            {account.username}
+                            {slot.code}
                           </div>
                           <div className="text-sm text-[var(--muted-foreground)]">
-                            {account.plan} · {account.lastSeen} · {account.delivery}
+                            {slot.slot} · Today {slot.todayObserved} · Total {slot.totalObserved}
+                          </div>
+                          <div className="mt-1 text-sm text-[var(--muted-foreground)]">
+                            {slot.lastSeen}
                           </div>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Badge variant="success">{account.status}</Badge>
-                        <Badge>{account.cleanliness.score}/100</Badge>
+                        <Badge variant={slot.todayObserved > 0 ? "success" : "default"}>
+                          {slot.status}
+                        </Badge>
+                        <Badge>{slot.activity}</Badge>
                       </div>
                     </div>
                   </div>
@@ -188,7 +194,7 @@ export function PortalShell() {
               <CardHeader>
                 <CardTitle>Node Snapshot</CardTitle>
                 <CardDescription>
-                  这是公开站点里适合保留的基础视图，用来展示共享池的大致波动。
+                  下面的柱状图来自 Xray access.log 的按日接入次数汇总，不是 GB 流量。
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -257,7 +263,7 @@ export function PortalShell() {
                   </div>
                   <div className="flex items-start gap-3">
                     <Sparkles className="mt-0.5 size-4 text-[var(--accent)]" />
-                    <p>纯净度可以展示公共检测结果，但不要把管理员面板做成公开入口。</p>
+                    <p>管理员如需做纯净度测试，建议单独手工跑，不要把测试接口嵌进公开页。</p>
                   </div>
                 </div>
               </CardContent>
@@ -265,23 +271,23 @@ export function PortalShell() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Deploy Boundary</CardTitle>
+                <CardTitle>Snapshot Policy</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-sm text-[var(--muted-foreground)]">
                 <p>
-                  Frontend target:
+                  Snapshot time:
                   <span className="ml-2 font-mono text-[var(--foreground)]">
-                    {siteConfig.deploymentTarget}
+                    {portalSummary.snapshotAt}
                   </span>
                 </p>
                 <p>
-                  API base:
+                  Xray memory:
                   <span className="ml-2 break-all font-mono text-[var(--foreground)]">
-                    {siteConfig.apiBaseUrl}
+                    {portalSummary.xrayMemory}
                   </span>
                 </p>
                 <p>
-                  GitHub Pages 只负责公开前端。真实订阅、登录能力和私有数据不要放在这里。
+                  GitHub Pages 只放静态快照，不嵌入 API 地址、真实订阅、账号密码或管理能力。
                 </p>
               </CardContent>
             </Card>

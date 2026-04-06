@@ -1,7 +1,7 @@
 import { usageTimeline } from "@/lib/mock-data";
 
 export function UsageChart() {
-  const max = Math.max(...usageTimeline.map((item) => item.value));
+  const max = Math.max(...usageTimeline.map((item) => item.value), 1);
 
   return (
     <div className="space-y-4">
@@ -21,7 +21,7 @@ export function UsageChart() {
         ))}
       </div>
       <p className="text-sm text-[var(--muted-foreground)]">
-        最近 7 天用量趋势。后端接入后可替换成按账号、按设备、按时间粒度的真实统计。
+        这是最近 7 天从 Xray access.log 汇总出的每日接入次数快照，用来观察哪几天更活跃。
       </p>
     </div>
   );
