@@ -1,4 +1,4 @@
-import { CircleGauge, Globe, ShieldCheck, Sparkles } from "lucide-react";
+import { CircleGauge, Globe, MonitorSmartphone, ShieldCheck, Sparkles } from "lucide-react";
 
 import { GridBackground } from "@/components/site/grid-background";
 import { LoginForm } from "@/components/site/login-form";
@@ -7,7 +7,14 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { featureList, portalSummary, sampleAccounts } from "@/lib/mock-data";
+import {
+  faqItems,
+  featureList,
+  installGuides,
+  portalSummary,
+  quickNotes,
+  sampleAccounts,
+} from "@/lib/mock-data";
 import { siteConfig } from "@/lib/site-config";
 
 export function PortalShell() {
@@ -60,7 +67,7 @@ export function PortalShell() {
               <CardHeader>
                 <CardTitle>Site Scope</CardTitle>
                 <CardDescription>
-                  这套 GitHub Pages 站点只负责公开说明，不承载真实登录或私有订阅托管。
+                  这套 GitHub Pages 站点只负责公开教程和导入说明，不承载真实登录或私有订阅托管。
                 </CardDescription>
               </CardHeader>
               <CardContent className="grid gap-4 sm:grid-cols-2">
@@ -107,6 +114,43 @@ export function PortalShell() {
 
             <Card>
               <CardHeader>
+                <CardTitle>Client Guides</CardTitle>
+                <CardDescription>
+                  按平台选择客户端。桌面端主推 Clash Verge Rev，移动端主推 Shadowrocket。
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid gap-4 lg:grid-cols-2">
+                {installGuides.map((guide) => (
+                  <div
+                    key={guide.id}
+                    className="rounded-2xl border border-[var(--border)] bg-[var(--panel-2)] p-5"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <div>
+                        <div className="font-mono text-sm uppercase tracking-[0.14em]">
+                          {guide.title}
+                        </div>
+                        <div className="mt-1 text-sm text-[var(--muted-foreground)]">
+                          {guide.app}
+                        </div>
+                      </div>
+                      <Badge variant="accent">Guide</Badge>
+                    </div>
+                    <p className="mt-4 text-sm text-[var(--muted-foreground)]">{guide.summary}</p>
+                    <div className="mt-4 space-y-2 text-sm text-[var(--muted-foreground)]">
+                      {guide.steps.map((step, index) => (
+                        <p key={step}>
+                          {index + 1}. {step}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
                 <CardTitle>Member Snapshot</CardTitle>
                 <CardDescription>这里只展示共享池的成员快照样式，不展示真实密码或私有链接。</CardDescription>
               </CardHeader>
@@ -142,13 +186,31 @@ export function PortalShell() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Usage Pattern</CardTitle>
+                <CardTitle>Node Snapshot</CardTitle>
                 <CardDescription>
                   这是公开站点里适合保留的基础视图，用来展示共享池的大致波动。
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <UsageChart />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Common Questions</CardTitle>
+                <CardDescription>把最常见的导入和连接问题直接写在公开页里。</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {faqItems.map((item) => (
+                  <div
+                    key={item.question}
+                    className="rounded-2xl border border-[var(--border)] bg-[var(--panel-2)] p-4"
+                  >
+                    <div className="font-mono text-sm uppercase tracking-[0.14em]">{item.question}</div>
+                    <p className="mt-3 text-sm text-[var(--muted-foreground)]">{item.answer}</p>
+                  </div>
+                ))}
               </CardContent>
             </Card>
           </section>
@@ -158,31 +220,21 @@ export function PortalShell() {
 
             <Card>
               <CardHeader>
-                <CardTitle>What Stays Private</CardTitle>
+                <CardTitle>Quick Notes</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4 text-sm text-[var(--muted-foreground)]">
-                <div className="flex items-start gap-3">
-                  <ShieldCheck className="mt-0.5 size-4 text-[var(--accent)]" />
-                  <p>真实账号密码和订阅 token 只保留在管理员手里，不进入 GitHub Pages。</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Globe className="mt-0.5 size-4 text-[var(--accent)]" />
-                  <p>一键导入链接和订阅地址通过私聊分发，不在网站里公开列出。</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CircleGauge className="mt-0.5 size-4 text-[var(--accent)]" />
-                  <p>用量统计先保留成公共快照，不在网页上暴露按用户的真实数据。</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Sparkles className="mt-0.5 size-4 text-[var(--accent)]" />
-                  <p>纯净度可以展示公共检测结果，但不要把管理员面板做成公开入口。</p>
-                </div>
+                {quickNotes.map((note) => (
+                  <div key={note} className="flex items-start gap-3">
+                    <MonitorSmartphone className="mt-0.5 size-4 text-[var(--accent)]" />
+                    <p>{note}</p>
+                  </div>
+                ))}
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>Admin Checklist</CardTitle>
+                <CardTitle>What Stays Private</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between font-mono text-xs uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
@@ -191,9 +243,22 @@ export function PortalShell() {
                 </div>
                 <Separator />
                 <div className="space-y-3 text-sm text-[var(--muted-foreground)]">
-                  <p>1. 账号和一键导入链接单独私发给成员，不要贴到仓库或站点上。</p>
-                  <p>2. 如果有人离组，轮换对应订阅 token，不要继续沿用原链接。</p>
-                  <p>3. 站点只保留教程、公告、节点状态和下载引导。</p>
+                  <div className="flex items-start gap-3">
+                    <ShieldCheck className="mt-0.5 size-4 text-[var(--accent)]" />
+                    <p>真实账号密码和订阅 token 只保留在管理员手里，不进入 GitHub Pages。</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Globe className="mt-0.5 size-4 text-[var(--accent)]" />
+                    <p>一键导入链接和订阅地址通过私聊分发，不在网站里公开列出。</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CircleGauge className="mt-0.5 size-4 text-[var(--accent)]" />
+                    <p>用量统计先保留成公共快照，不在网页上暴露按用户的真实数据。</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Sparkles className="mt-0.5 size-4 text-[var(--accent)]" />
+                    <p>纯净度可以展示公共检测结果，但不要把管理员面板做成公开入口。</p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
