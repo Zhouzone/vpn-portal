@@ -11,16 +11,10 @@ export const portalSummary = {
 export const sampleAccounts = [
   {
     username: "akira",
-    password: "temp-demo-001",
     plan: "Shared JP Mono",
-    trafficUsed: 38,
-    trafficTotal: 100,
-    subscriptionLabel: "akira-main",
-    importUrl: "https://portal.example.com/sub/akira.yaml",
-    oneClickUrl:
-      "clash://install-config?url=https%3A%2F%2Fportal.example.com%2Fsub%2Fakira.yaml",
     status: "Healthy",
     lastSeen: "5 min ago",
+    delivery: "Delivered privately",
     cleanliness: {
       score: 95,
       dns: "Clean",
@@ -31,16 +25,10 @@ export const sampleAccounts = [
   },
   {
     username: "mori",
-    password: "temp-demo-002",
     plan: "Shared JP Mono",
-    trafficUsed: 72,
-    trafficTotal: 120,
-    subscriptionLabel: "mori-main",
-    importUrl: "https://portal.example.com/sub/mori.yaml",
-    oneClickUrl:
-      "clash://install-config?url=https%3A%2F%2Fportal.example.com%2Fsub%2Fmori.yaml",
     status: "Stable",
     lastSeen: "18 min ago",
+    delivery: "Delivered privately",
     cleanliness: {
       score: 89,
       dns: "Clean",
@@ -85,8 +73,8 @@ export const dashboardCards = [
 ];
 
 export const featureList = [
-  "账户登录后查看自己的订阅、流量和最近状态",
-  "一键复制订阅地址或调起 Clash Verge 导入",
-  "展示节点位置、延迟、健康度和剩余流量",
-  "接入 ping0.cc 纯净度检测结果和历史快照",
+  "公开页面只展示节点位置、延迟、健康度和基础说明",
+  "真实订阅链接由管理员私下分发，不在 GitHub Pages 公网展示",
+  "Clash Verge 通过私发的一键导入链接或订阅地址接入",
+  "纯净度和用量先展示静态快照，后续再接真实数据源",
 ];

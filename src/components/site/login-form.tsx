@@ -1,63 +1,32 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
-import { ArrowRight, KeyRound, UserRound } from "lucide-react";
+import { BellRing, Link2, ShieldEllipsis } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 
 export function LoginForm() {
-  const [username, setUsername] = useState("akira");
-  const [password, setPassword] = useState("temp-demo-001");
-
   return (
     <Card className="relative overflow-hidden">
       <CardHeader>
-        <CardTitle>Member Access</CardTitle>
+        <CardTitle>Access Model</CardTitle>
         <CardDescription>
-          当前是前端演示版。登录页只展示流程，不会校验真实用户数据库。
+          这个 GitHub Pages 站点是公开说明页，不承载真实登录、账号密码或私有订阅。
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <label className="block space-y-2">
-          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
-            Username
-          </span>
-          <div className="relative">
-            <UserRound className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[var(--muted-foreground)]" />
-            <Input
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              className="pl-10"
-            />
+        <div className="space-y-3 text-sm text-[var(--muted-foreground)]">
+          <div className="flex items-start gap-3 rounded-2xl border border-[var(--border)] bg-[var(--panel-2)] p-4">
+            <BellRing className="mt-0.5 size-4 text-[var(--accent)]" />
+            <p>管理员单独分发账号信息或订阅链接，不在网页里公开展示。</p>
           </div>
-        </label>
-        <label className="block space-y-2">
-          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
-            Password
-          </span>
-          <div className="relative">
-            <KeyRound className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[var(--muted-foreground)]" />
-            <Input
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              className="pl-10"
-            />
+          <div className="flex items-start gap-3 rounded-2xl border border-[var(--border)] bg-[var(--panel-2)] p-4">
+            <Link2 className="mt-0.5 size-4 text-[var(--accent)]" />
+            <p>Clash Verge 建议直接导入管理员私发的订阅 URL 或一键导入链接。</p>
           </div>
-        </label>
-        <div className="flex flex-col gap-3 pt-2 sm:flex-row">
-          <Button asChild className="flex-1">
-            <Link href="/dashboard">
-              Enter Portal
-              <ArrowRight className="size-4" />
-            </Link>
-          </Button>
-          <Button variant="outline" asChild className="flex-1">
-            <Link href="/dashboard">View Demo Dashboard</Link>
-          </Button>
+          <div className="flex items-start gap-3 rounded-2xl border border-[var(--border)] bg-[var(--panel-2)] p-4">
+            <ShieldEllipsis className="mt-0.5 size-4 text-[var(--accent)]" />
+            <p>不要在 GitHub Pages 或公开仓库里存放真实订阅、密码或节点明文。</p>
+          </div>
         </div>
       </CardContent>
     </Card>

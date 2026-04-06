@@ -1,5 +1,5 @@
-import { DashboardShell } from "@/components/site/dashboard-shell";
+import { PortalShell } from "@/components/site/portal-shell";
 
 export default function DashboardPage() {
-  return <DashboardShell />;
+  return <PortalShell />;
 }

@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "NaikoCloud JP Portal",
-  description: "Private account portal for Clash subscriptions, usage, and node cleanliness.",
+  description: "Public guide page for a small shared JP node, with status snapshots and import instructions.",
 };
 
 export default function RootLayout({

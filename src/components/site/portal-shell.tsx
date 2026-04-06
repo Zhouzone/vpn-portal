@@ -1,12 +1,10 @@
-import Link from "next/link";
-import { ArrowUpRight, CircleGauge, Globe, ShieldCheck, Sparkles } from "lucide-react";
+import { CircleGauge, Globe, ShieldCheck, Sparkles } from "lucide-react";
 
 import { GridBackground } from "@/components/site/grid-background";
 import { LoginForm } from "@/components/site/login-form";
 import { UsageChart } from "@/components/site/usage-chart";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { featureList, portalSummary, sampleAccounts } from "@/lib/mock-data";
@@ -22,11 +20,11 @@ export function PortalShell() {
             <Badge variant="accent">Mono Portal</Badge>
             <div className="space-y-2">
               <h1 className="max-w-3xl font-mono text-4xl uppercase leading-none tracking-[-0.04em] sm:text-6xl">
-                Private Access For Your JP Node
+                Shared JP Node Guide
               </h1>
               <p className="max-w-2xl text-base text-[var(--muted-foreground)] sm:text-lg">
-                一个给小规模用户分发账号、导入 Clash、查看流量、检查纯净度的私有面板。
-                视觉风格按 Mono 方向处理，前端先走静态演示版。
+                一个给小规模用户查看节点概况、导入说明和状态快照的公开说明页。
+                私有订阅和成员分发仍然由管理员线下处理。
               </p>
             </div>
           </div>
@@ -60,9 +58,9 @@ export function PortalShell() {
           <section className="space-y-8">
             <Card className="overflow-hidden">
               <CardHeader>
-                <CardTitle>Portal Scope</CardTitle>
+                <CardTitle>Site Scope</CardTitle>
                 <CardDescription>
-                  这套网站适合你现在的场景：4 到 5 个共享用户，登录后各自看自己的订阅和状态。
+                  这套 GitHub Pages 站点只负责公开说明，不承载真实登录或私有订阅托管。
                 </CardDescription>
               </CardHeader>
               <CardContent className="grid gap-4 sm:grid-cols-2">
@@ -109,8 +107,8 @@ export function PortalShell() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Account Preview</CardTitle>
-                <CardDescription>未来每个用户登录后都会看到自己对应的入口。</CardDescription>
+                <CardTitle>Member Snapshot</CardTitle>
+                <CardDescription>这里只展示共享池的成员快照样式，不展示真实密码或私有链接。</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {sampleAccounts.map((account) => (
@@ -128,7 +126,7 @@ export function PortalShell() {
                             {account.username}
                           </div>
                           <div className="text-sm text-[var(--muted-foreground)]">
-                            {account.plan} · {account.lastSeen}
+                            {account.plan} · {account.lastSeen} · {account.delivery}
                           </div>
                         </div>
                       </div>
@@ -146,7 +144,7 @@ export function PortalShell() {
               <CardHeader>
                 <CardTitle>Usage Pattern</CardTitle>
                 <CardDescription>
-                  这是为“看用量”和“看波动”准备的基础视图。
+                  这是公开站点里适合保留的基础视图，用来展示共享池的大致波动。
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -160,49 +158,43 @@ export function PortalShell() {
 
             <Card>
               <CardHeader>
-                <CardTitle>What The Real Product Needs</CardTitle>
+                <CardTitle>What Stays Private</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4 text-sm text-[var(--muted-foreground)]">
                 <div className="flex items-start gap-3">
                   <ShieldCheck className="mt-0.5 size-4 text-[var(--accent)]" />
-                  <p>真实登录鉴权，至少要有账号表、密码哈希、会话管理。</p>
+                  <p>真实账号密码和订阅 token 只保留在管理员手里，不进入 GitHub Pages。</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <Globe className="mt-0.5 size-4 text-[var(--accent)]" />
-                  <p>订阅文件不能放到 GitHub Pages 公网裸露，需要登录后按用户下发。</p>
+                  <p>一键导入链接和订阅地址通过私聊分发，不在网站里公开列出。</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <CircleGauge className="mt-0.5 size-4 text-[var(--accent)]" />
-                  <p>用量统计需要从 Xray 日志、面板 API 或你自己的流量计量服务读取。</p>
+                  <p>用量统计先保留成公共快照，不在网页上暴露按用户的真实数据。</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <Sparkles className="mt-0.5 size-4 text-[var(--accent)]" />
-                  <p>纯净度页可以集成 ping0.cc 检测结果，但要考虑抓取方式和频率。</p>
+                  <p>纯净度可以展示公共检测结果，但不要把管理员面板做成公开入口。</p>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>Admin Shortlist</CardTitle>
+                <CardTitle>Admin Checklist</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between font-mono text-xs uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
-                  <span>Recommended backend</span>
-                  <span>Next + DB</span>
+                  <span>Delivery model</span>
+                  <span>Admin direct</span>
                 </div>
                 <Separator />
                 <div className="space-y-3 text-sm text-[var(--muted-foreground)]">
-                  <p>1. PostgreSQL 或 SQLite 存用户、套餐、设备、订阅 token。</p>
-                  <p>2. NextAuth/Auth.js 或自定义 session 做登录。</p>
-                  <p>3. 后端 API 统一生成 YAML，不要把真实订阅写死在前端仓库。</p>
+                  <p>1. 账号和一键导入链接单独私发给成员，不要贴到仓库或站点上。</p>
+                  <p>2. 如果有人离组，轮换对应订阅 token，不要继续沿用原链接。</p>
+                  <p>3. 站点只保留教程、公告、节点状态和下载引导。</p>
                 </div>
-                <Button variant="outline" asChild className="w-full">
-                  <Link href="/dashboard">
-                    Open Dashboard Mock
-                    <ArrowUpRight className="size-4" />
-                  </Link>
-                </Button>
               </CardContent>
             </Card>
 
@@ -224,7 +216,7 @@ export function PortalShell() {
                   </span>
                 </p>
                 <p>
-                  GitHub Pages 只负责公开前端。真实登录、订阅生成、用量统计和纯净度缓存仍然要放在你的 VPS。
+                  GitHub Pages 只负责公开前端。真实订阅、登录能力和私有数据不要放在这里。
                 </p>
               </CardContent>
             </Card>
