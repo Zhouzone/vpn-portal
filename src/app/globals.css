@@ -1,0 +1,51 @@
+@import "@fontsource/space-grotesk/400.css";
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/700.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-mono/600.css";
+@import "tailwindcss";
+
+:root {
+  --background: #0d0f0f;
+  --foreground: #f1f1eb;
+  --foreground-soft: #c9cbc2;
+  --muted-foreground: #8f9588;
+  --panel: rgba(18, 21, 21, 0.84);
+  --panel-2: rgba(29, 33, 33, 0.82);
+  --border: rgba(225, 228, 214, 0.13);
+  --ring: rgba(240, 255, 117, 0.58);
+  --accent: #f0ff75;
+  --accent-soft: #dbe85d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "Space Grotesk";
+  --font-mono: "IBM Plex Mono";
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Space Grotesk", sans-serif;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--accent);
+  color: #090a05;
+}
