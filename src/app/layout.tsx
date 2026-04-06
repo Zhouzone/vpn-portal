@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "NaikoCloud JP Portal",
-  description: "Public guide page for a small shared JP node, with status snapshots and import instructions.",
+  title: "JP Shared Node Guide",
+  description:
+    "Public guide page for a small shared Japan VPS node, with real setup notes and anonymized activity snapshots.",
 };
 
 export default function RootLayout({
